@@ -1,0 +1,73 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 35
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| csa0547            |
+| department         |
+| faculty            |
+| mysql              |
+| performance_schema |
+| srinu              |
+| student            |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+mysql> use student;
+Database changed
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Std_ID     | int(5)      | YES  |     | NULL    |       |
+| std_Name   | char(20)    | YES  |     | NULL    |       |
+| Gender     | char(5)     | YES  |     | NULL    |       |
+| Phone      | int(15)     | YES  |     | NULL    |       |
+| DOB        | date        | YES  |     | NULL    |       |
+| Department | char(20)    | YES  |     | NULL    |       |
+| address    | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> select*from students;
++-----------+----------+------+-----------+------------+
+| Regno     | Name     | Dept | Address   | Fathername |
++-----------+----------+------+-----------+------------+
+| 192211211 | Srinu    | CSE  | Tirupathi | Krishna    |
+| 192211204 | Chandu   | ECE  | Renigunta | Sambaiah   |
+| 192210196 | Priyanka | EEE  | Nellore   | Venkatesh  |
+| 192211205 | Harika   | CSE  | Kadapa    | Ramana     |
++-----------+----------+------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select name from students;
++----------+
+| name     |
++----------+
+| Srinu    |
+| Chandu   |
+| Priyanka |
+| Harika   |
++----------+
+4 rows in set (0.00 sec)
+mysql> select*from students where name='srinu';
++-----------+-------+------+-----------+------------+
+| Regno     | Name  | Dept | Address   | Fathername |
++-----------+-------+------+-----------+------------+
+| 192211211 | Srinu | CSE  | Tirupathi | Krishna    |
++-----------+-------+------+-----------+------------+
+1 row in set (0.00 sec)
+

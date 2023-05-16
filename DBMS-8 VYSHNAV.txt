@@ -1,0 +1,124 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 44
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| csa0547            |
+| department         |
+| faculty            |
+| mysql              |
+| name               |
+| performance_schema |
+| srinu              |
+| student            |
+| test               |
++--------------------+
+10 rows in set (0.01 sec)
+
+mysql> use student;
+Database changed
+mysql> select*from mentees;
+Empty set (0.00 sec)
+
+mysql> create table mentees1(regno int(10),name varchar(10),dept varchar(4),address varchar(10),fathername varchar(10),marks int(3),subject varchar(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into mentees1 values(211,'srinu','CSE','tirupathi','krishna','91','DBMS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mentees1 values(210,'rohit','ECE','tiru','krish','99','BIOEVS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mentees1 values(209,'virat','ECE','renigunta','virat','95','POM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mentees1 values(212,'rinku','EEE','pura','dhoni','96','DS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mentees1 values(213,'iyer','CSE','egmore','dhawan','91','PDSD');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> desc mentees1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| regno      | int(10)     | YES  |     | NULL    |       |
+| name       | varchar(10) | YES  |     | NULL    |       |
+| dept       | varchar(4)  | YES  |     | NULL    |       |
+| address    | varchar(10) | YES  |     | NULL    |       |
+| fathername | varchar(10) | YES  |     | NULL    |       |
+| marks      | int(3)      | YES  |     | NULL    |       |
+| subject    | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select*from mentees1;
++-------+-------+------+-----------+------------+-------+---------+
+| regno | name  | dept | address   | fathername | marks | subject |
++-------+-------+------+-----------+------------+-------+---------+
+|   211 | srinu | CSE  | tirupathi | krishna    |    91 | DBMS    |
+|   210 | rohit | ECE  | tiru      | krish      |    99 | BIOEVS  |
+|   209 | virat | ECE  | renigunta | virat      |    95 | POM     |
+|   212 | rinku | EEE  | pura      | dhoni      |    96 | DS      |
+|   213 | iyer  | CSE  | egmore    | dhawan     |    91 | PDSD    |
++-------+-------+------+-----------+------------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select regno,name
+    -> from mentees1
+    -> where name in(select name from mentees1 where subject='POM');
++-------+-------+
+| regno | name  |
++-------+-------+
+|   209 | virat |
++-------+-------+
+1 row in set (0.01 sec)
+
+mysql> create table mentees2(regno int(10),name varchar(10));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into mentees2 values(210,'rohit');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into mentees2 values(209,'virat');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from mentees2;
++-------+-------+
+| regno | name  |
++-------+-------+
+|   210 | rohit |
+|   209 | virat |
++-------+-------+
+2 rows in set (0.00 sec)
+mysql> select regno,(select name from mentees2 where regno=210)as name,dept,address,fathername,marks,subject from mentees1 where regno=210;
++-------+-------+------+---------+------------+-------+---------+
+| regno | name  | dept | address | fathername | marks | subject |
++-------+-------+------+---------+------------+-------+---------+
+|   210 | rohit | ECE  | tiru    | krish      |    99 | BIOEVS  |
++-------+-------+------+---------+------------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> select*from mentees1 where marks>=(select avg(marks)from mentees1);
++-------+-------+------+-----------+------------+-------+---------+
+| regno | name  | dept | address   | fathername | marks | subject |
++-------+-------+------+-----------+------------+-------+---------+
+|   210 | rohit | ECE  | tiru      | krish      |    99 | BIOEVS  |
+|   209 | virat | ECE  | renigunta | virat      |    95 | POM     |
+|   212 | rinku | EEE  | pura      | dhoni      |    96 | DS      |
++-------+-------+------+-----------+------------+-------+---------+
+3 rows in set (0.00 sec)
+

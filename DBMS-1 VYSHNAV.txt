@@ -1,0 +1,91 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 25
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| csa0547            |
+| department         |
+| faculty            |
+| mysql              |
+| performance_schema |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use student;
+Database changed
+mysql> create table teachers(tchid int(10),name varchar(10),dept varchar(4),fathername varchar(10));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into teachers values(1911211,'srinu','CSE','krishna');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into teachers values(1910196,'priya','ECE','ramu');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into teachers values(1911204,'chandu','EEE','samba');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into teachers values(1911205,'husain','CSE','hari');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into teachers values(1911207,'adhi','CSE','kusa');
+Query OK, 1 row affected (0.00 sec)
+mysql> desc student;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| Std_ID     | int(5)   | YES  |     | NULL    |       |
+| std_Name   | char(20) | YES  |     | NULL    |       |
+| Gender     | char(5)  | YES  |     | NULL    |       |
+| Phone      | int(15)  | YES  |     | NULL    |       |
+| DOB        | date     | YES  |     | NULL    |       |
+| Department | char(20) | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+mysql> alter table student add address varchar(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Std_ID     | int(5)      | YES  |     | NULL    |       |
+| std_Name   | char(20)    | YES  |     | NULL    |       |
+| Gender     | char(5)     | YES  |     | NULL    |       |
+| Phone      | int(15)     | YES  |     | NULL    |       |
+| DOB        | date        | YES  |     | NULL    |       |
+| Department | char(20)    | YES  |     | NULL    |       |
+| address    | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+mysql> drop table faculty;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Std_ID     | int(5)      | YES  |     | NULL    |       |
+| std_Name   | char(20)    | YES  |     | NULL    |       |
+| Gender     | char(5)     | YES  |     | NULL    |       |
+| Phone      | int(15)     | YES  |     | NULL    |       |
+| DOB        | date        | YES  |     | NULL    |       |
+| Department | char(20)    | YES  |     | NULL    |       |
+| address    | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+

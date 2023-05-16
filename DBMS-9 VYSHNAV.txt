@@ -1,0 +1,108 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 47
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| csa0547            |
+| department         |
+| faculty            |
+| mysql              |
+| name               |
+| performance_schema |
+| srinu              |
+| student            |
+| test               |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> use student;
+Database changed
+mysql> select*from order_items;
++----------+------------+-------------+----------+
+| order_id | product_id | total_units | customer |
++----------+------------+-------------+----------+
+|     5100 |        104 |          30 | infosys  |
+|     5101 |        102 |          25 | satyam   |
+|     5102 |        103 |          25 | wipro    |
+|     5103 |        101 |          10 | tcs      |
++----------+------------+-------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select*from product;
++------+------------+---------------+------------+
+| p_id | p_name     | supplier_name | unit_price |
++------+------------+---------------+------------+
+|  101 | camera     | srinu         |        300 |
+|  102 | telivision | chandu        |        100 |
+|  102 | oppo       | rohit         |         75 |
+|  103 | vivo       | guru          |         50 |
++------+------------+---------------+------------+
+4 rows in set (0.01 sec)
+
+mysql> select order_id,p_name,unit_price,supplier_name,total_units,customer
+    -> from product,order_items
+    -> where order_items.product_id=product.p_id;
++----------+------------+------------+---------------+-------------+----------+
+| order_id | p_name     | unit_price | supplier_name | total_units | customer |
++----------+------------+------------+---------------+-------------+----------+
+|     5101 | telivision |        100 | chandu        |          25 | satyam   |
+|     5101 | oppo       |         75 | rohit         |          25 | satyam   |
+|     5102 | vivo       |         50 | guru          |          25 | wipro    |
+|     5103 | camera     |        300 | srinu         |          10 | tcs      |
++----------+------------+------------+---------------+-------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select order_id,p_name,unit_price,supplier_name,total_units,customer
+    -> from product p,order_items o
+    -> where o.product_id=p.p_id;
++----------+------------+------------+---------------+-------------+----------+
+| order_id | p_name     | unit_price | supplier_name | total_units | customer |
++----------+------------+------------+---------------+-------------+----------+
+|     5101 | telivision |        100 | chandu        |          25 | satyam   |
+|     5101 | oppo       |         75 | rohit         |          25 | satyam   |
+|     5102 | vivo       |         50 | guru          |          25 | wipro    |
+|     5103 | camera     |        300 | srinu         |          10 | tcs      |
++----------+------------+------------+---------------+-------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select p_id,p_name,order_id,total_units
+    -> from product
+    -> left outer join order_items
+    -> on product.p_id=order_items.product_id;
++------+------------+----------+-------------+
+| p_id | p_name     | order_id | total_units |
++------+------------+----------+-------------+
+|  101 | camera     |     5103 |          10 |
+|  102 | telivision |     5101 |          25 |
+|  102 | oppo       |     5101 |          25 |
+|  103 | vivo       |     5102 |          25 |
++------+------------+----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select p_id,p_name,order_id,total_units
+    -> from product
+    -> right outer join order_items
+    -> on product.p_id=order_items.product_id;
++------+------------+----------+-------------+
+| p_id | p_name     | order_id | total_units |
++------+------------+----------+-------------+
+| NULL | NULL       |     5100 |          30 |
+|  102 | telivision |     5101 |          25 |
+|  102 | oppo       |     5101 |          25 |
+|  103 | vivo       |     5102 |          25 |
+|  101 | camera     |     5103 |          10 |
++------+------------+----------+-------------+
+5 rows in set (0.00 sec)
